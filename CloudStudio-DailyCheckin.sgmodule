@@ -1,0 +1,7 @@
+#!name=Cloud Studio 每日签到
+#!desc=每天 09:00 自动领取 Cloud Studio 机时，并通知签到结果和当前可用总机时
+#!arguments=cookie:
+#!arguments-desc=Cookie：登录 cloudstudio.net 后在浏览器控制台执行 copy(document.cookie) 获取
+
+[Script]
+cloudstudio-daily-checkin = type=cron,cronexp="0 9 * * *",script-path=CloudStudio-DailyCheckin.js,timeout=20,wake-system=true,argument="cookie={{{cookie}}}"
