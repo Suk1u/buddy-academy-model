@@ -1,0 +1,1 @@
+# buddy-academy-model
