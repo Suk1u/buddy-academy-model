@@ -24,8 +24,7 @@ if (!COOKIE) {
 
       request("GET", "/api/billing/resource/package?pageNumber=0&pageSize=100", headers, function (balanceError, balanceResponse, balanceBody) {
         const balance = describeBalance(balanceError, balanceResponse, parseJson(balanceBody));
-        const body = signState.message + "\n" + balance.message;
-        finish(signState.title, signState.subtitle, body);
+        finish(signState.title, signState.subtitle, signState.message + "\n" + balance.message);
       });
     });
   }
@@ -59,13 +58,13 @@ function describeSignIn(error, response, data, body) {
 }
 
 function describeBalance(error, response, data) {
-  if (error) return {message: "总可用机时：查询失败（" + String(error) + "）"};
+  if (error) return {message: "总机时：查询失败（" + String(error) + "）"};
   if (!response || response.status !== 200) {
-    return {message: "总可用机时：查询失败（HTTP " + (response ? response.status : "无响应") + "）"};
+    return {message: "总机时：查询失败（HTTP " + (response ? response.status : "无响应") + "）"};
   }
 
   const packages = findPackages(data);
-  if (!packages) return {message: "总可用机时：接口返回未识别"};
+  if (!packages) return {message: "总机时：接口返回未识别"};
 
   const totals = packages.reduce(function (sum, item) {
     return sum + Number(item.total || 0);
